@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const LocationCard = (props) => {
   return (
@@ -17,7 +18,15 @@ const LocationCard = (props) => {
         <picture>
           <img src={require("./doghouse.jpeg")} alt="Doghouse" />
         </picture>
-        <button type="button" onClick={() => props.deleteLocation(props.location.id)}>Close</button>
+        <Link to={`/location/${props.location.id}`}>
+          <button>Details</button>
+        </Link>
+        <button
+          type="button"
+          onClick={() => props.deleteLocation(props.location.id)}
+        >
+          Close
+        </button>
       </div>
     </div>
   );
