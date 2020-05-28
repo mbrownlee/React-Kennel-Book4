@@ -15,6 +15,11 @@ const AnimalList = () => {
     });
   };
 
+  const deleteAnimal = id => {
+    AnimalManager.delete(id)
+      .then(() => AnimalManager.getAll().then(setAnimals));
+  };
+
   // got the animals from the API on the component's first render
   useEffect(() => {
     getAnimals();
@@ -23,7 +28,7 @@ const AnimalList = () => {
   // Finally we use map() to "loop over" the animals array to show a list of animal cards
   return (
     <div className="container-cards">
-      {animals.map(animal => <AnimalCard key={animal.id} animal={animal} />)}
+      {animals.map(animal => <AnimalCard key={animal.id} animal={animal} deleteAnimal={deleteAnimal} />)}
     </div>
   );
 };

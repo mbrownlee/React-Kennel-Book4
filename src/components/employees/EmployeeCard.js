@@ -12,6 +12,7 @@ const EmployeeCard = (props) => {
           <img src={require("./download.jpeg")} alt="Employee" />
         </picture>
         <p>Soecialty: {props.employee.specialty}</p>
+        <button type="button" onClick={() => props.deleteEmployee(props.employee.id)}>Redundant</button>
       </div>
     </div>
   );
