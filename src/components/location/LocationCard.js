@@ -17,6 +17,7 @@ const LocationCard = (props) => {
         <picture>
           <img src={require("./doghouse.jpeg")} alt="Doghouse" />
         </picture>
+        <button type="button" onClick={() => props.deleteLocation(props.location.id)}>Close</button>
       </div>
     </div>
   );

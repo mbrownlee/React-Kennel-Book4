@@ -11,6 +11,7 @@ const OwnerCard = (props) => {
           <img src={require("./owner.jpeg")} alt="Owner" />
         </picture>
         <p>Phone Number: {props.owner.phoneNumber}</p>
+        <button type="button" onClick={() => props.deleteOwner(props.owner.id)}>Unleashed</button>
       </div>
     </div>
   );
