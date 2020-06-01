@@ -4,7 +4,16 @@ import LocationManager from '../../modules/LocationManager';
 
 const LocationDetail = props => {
   const [location, setLocation] = useState({area: "", address: "" });
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  LocationManager.get(props.locationId)
+    .then(location => {
+      setLocation({
+        area: location.area,
+        address: location.address
+      });
+    })
+
   const handleDelete = () => {
     //invoke the delete function in AnimalManger and re-direct to the animal list.
     setIsLoading(true);
@@ -13,17 +22,6 @@ const LocationDetail = props => {
     );
   };
 
-  useEffect(() => {
-    //get(id) from AnimalManager and hang on to the data; put it into state
-    LocationManager.get(props.locationId)
-      .then(location => {
-        setLocation({
-          area: location.area,
-          address: location.address
-        });
-        setIsLoading(false);
-      });
-  }, [props.locationId]);
 
   return (
     <div className="card">
@@ -40,5 +38,6 @@ const LocationDetail = props => {
     </div>
   );
 }
+
 
 export default LocationDetail;

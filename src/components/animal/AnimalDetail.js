@@ -4,7 +4,16 @@ import "./AnimalDetail.css";
 
 const AnimalDetail = (props) => {
   const [animal, setAnimal] = useState({ name: "", breed: "" });
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  AnimalManager.get(props.animalId).then((animal) => {
+    setAnimal({
+      name: animal.name,
+      breed: animal.breed,
+    });
+  })
+  
+  
   const handleDelete = () => {
     //invoke the delete function in AnimalManger and re-direct to the animal list.
     setIsLoading(true);
@@ -12,17 +21,6 @@ const AnimalDetail = (props) => {
       props.history.push("/animals")
     );
   };
-
-  useEffect(() => {
-    //get(id) from AnimalManager and hang on to the data; put it into state
-    AnimalManager.get(props.animalId).then((animal) => {
-      setAnimal({
-        name: animal.name,
-        breed: animal.breed,
-      });
-      setIsLoading(false);
-    });
-  }, [props.animalId]);
 
   return (
     <div className="card">
