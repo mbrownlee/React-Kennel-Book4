@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 //import the components we will need
 import AnimalCard from "./AnimalCard";
 import AnimalManager from "../../modules/AnimalManager";
-import "./AnimalList.css"
+import "./AnimalList.css";
 
 const AnimalList = (props) => {
   // The initial state is an empty array
@@ -42,6 +42,7 @@ const AnimalList = (props) => {
             key={animal.id}
             animal={animal}
             deleteAnimal={deleteAnimal}
+            {...props}
           />
         ))}
       </div>

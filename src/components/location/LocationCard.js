@@ -11,17 +11,24 @@ const LocationCard = (props) => {
           <small>Loving care when you're not there.</small>
         </h2>
         <address>
-          {props.location.area}
+          {props.locay.area}
           <br />
-          {props.location.address}
+          {props.locay.address}
         </address>
         <picture>
           <img src={require("./doghouse.jpeg")} alt="Doghouse" />
         </picture>
-        <Link to={`/location/${props.location.id}`}>
+        <Link to={`/location/${props.locay.id}`}>
           <button>Details</button>
         </Link>
-        
+        <button
+          type="button"
+          onClick={() =>
+            props.history.push(`/location/${props.locay.id}/edit`)
+          }
+        >
+          Edit
+        </button>
       </div>
     </div>
   );

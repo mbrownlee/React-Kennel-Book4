@@ -4,21 +4,20 @@ import "./AnimalDetail.css";
 import EmployeeManager from "../../modules/EmployeeManager";
 
 const AnimalDetail = (props) => {
-  const [animal, setAnimal] = useState({ name: "", breed: "" });
+  const [animal, setAnimal] = useState({ name: "", breed: "", employeeId: "" });
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    let theAnimal = {}
-
-    AnimalManager.get(props.animalId)
-      .then((animal) => {
-        theAnimal = animal
-        return EmployeeManager.get(animal.employeeId);
-      })
-      .then((employee) => {
-        theAnimal.caretaker = employee.name
+    let theAnimal = {};
+    // full disclosure there was some instructor assistance on this
+    AnimalManager.get(props.animalId).then((animal) => {
+      theAnimal = animal;
+      console.log(animal, "hey")
+      return EmployeeManager.get(animal.employeeId).then((employee) => {
+        theAnimal.caretaker = employee.name;
         setAnimal(theAnimal);
       });
+    });
   }, [props.animalId]);
 
   const handleDelete = () => {
@@ -40,6 +39,13 @@ const AnimalDetail = (props) => {
         </h3>
         <p>Breed: {animal.breed}</p>
         <p>Caretaker: {animal.caretaker || "not assigned"} </p>
+        <button
+          type="button"
+          onClick={() => props.history.push(`/animals/${animal.id}/edit`)}
+        >
+          Edit
+        </button>
+
         <button type="button" disabled={isLoading} onClick={handleDelete}>
           Discharge
         </button>

@@ -16,7 +16,6 @@ const AnimalCard = (props) => {
         <Link to={`/animals/${props.animal.id}`}>
           <button>Details</button>
         </Link>
-        
       </div>
     </div>
   );
