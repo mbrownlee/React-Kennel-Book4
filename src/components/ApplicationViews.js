@@ -1,6 +1,7 @@
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import React from "react";
 import Home from "./home/Home";
+import Login from "./auth/Login";
 import AnimalList from "./animal/AnimalList";
 import AnimalDetail from "./animal/AnimalDetail";
 import AnimalForm from "./animal/AnimalForm";
@@ -13,6 +14,7 @@ import OwnerList from "./owner/OwnerList";
 import OwnerForm from "./owner/OwnerForm";
 
 const ApplicationViews = () => {
+  const isAuthenticated = () => sessionStorage.getItem("credentials") !== null;
   return (
     <React.Fragment>
       <Route
@@ -22,11 +24,16 @@ const ApplicationViews = () => {
           return <Home />;
         }}
       />
+      <Route path="/login" component={Login} />
       <Route
         exact
         path="/animals"
         render={(props) => {
-          return <AnimalList {...props} />;
+          if (isAuthenticated()) {
+            return <AnimalList {...props} />;
+          } else {
+            return <Redirect to="/login" />;
+          }
         }}
       />
       <Route
@@ -53,7 +60,11 @@ const ApplicationViews = () => {
         exact
         path="/location"
         render={(props) => {
-          return <LocationList {...props} />;
+          if (isAuthenticated()) {
+            return <LocationList {...props} />;
+          } else {
+            return <Redirect to="/login" />;
+          }
         }}
       />
       <Route
@@ -78,7 +89,11 @@ const ApplicationViews = () => {
         exact
         path="/employees"
         render={(props) => {
-          return <EmployeeList {...props} />;
+          if (isAuthenticated()) {
+            return <EmployeeList {...props} />;
+          } else {
+            return <Redirect to="/login" />;
+          }
         }}
       />
       <Route
@@ -91,7 +106,11 @@ const ApplicationViews = () => {
         exact
         path="/owner"
         render={(props) => {
-          return <OwnerList {...props} />;
+          if (isAuthenticated()) {
+            return <OwnerList {...props} />;
+          } else {
+            return <Redirect to="/login" />;
+          }
         }}
       />
       <Route

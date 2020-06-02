@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
 import AnimalManager from "../../modules/AnimalManager";
 import "./AnimalDetail.css";
+import EmployeeManager from "../../modules/EmployeeManager";
 
 const AnimalDetail = (props) => {
   const [animal, setAnimal] = useState({ name: "", breed: "" });
   const [isLoading, setIsLoading] = useState(false);
-  
-  AnimalManager.get(props.animalId).then((animal) => {
-    setAnimal({
-      name: animal.name,
-      breed: animal.breed,
-    });
-  })
-  
-  
+
+  useEffect(() => {
+    let theAnimal = {}
+
+    AnimalManager.get(props.animalId)
+      .then((animal) => {
+        theAnimal = animal
+        return EmployeeManager.get(animal.employeeId);
+      })
+      .then((employee) => {
+        theAnimal.caretaker = employee.name
+        setAnimal(theAnimal);
+      });
+  }, [props.animalId]);
+
   const handleDelete = () => {
     //invoke the delete function in AnimalManger and re-direct to the animal list.
     setIsLoading(true);
@@ -32,6 +39,7 @@ const AnimalDetail = (props) => {
           Name: <span style={{ color: "darkslategrey" }}>{animal.name}</span>
         </h3>
         <p>Breed: {animal.breed}</p>
+        <p>Caretaker: {animal.caretaker || "not assigned"} </p>
         <button type="button" disabled={isLoading} onClick={handleDelete}>
           Discharge
         </button>
