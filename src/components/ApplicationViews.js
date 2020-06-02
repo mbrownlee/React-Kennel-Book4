@@ -5,6 +5,7 @@ import Login from "./auth/Login";
 import AnimalList from "./animal/AnimalList";
 import AnimalDetail from "./animal/AnimalDetail";
 import AnimalForm from "./animal/AnimalForm";
+import AnimalEditForm from "./animal/AnimalEditForm";
 import LocationList from "./location/LocationList";
 import LocationDetail from "./location/LocationDetail";
 import LocationForm from "./location/LocationForm";
@@ -37,6 +38,7 @@ const ApplicationViews = () => {
         }}
       />
       <Route
+        exact
         path="/animals/:animalId(\d+)"
         render={(props) => {
           // Pass the animalId to the AnimalDetailComponent
@@ -54,8 +56,17 @@ const ApplicationViews = () => {
           return <AnimalForm {...props} />;
         }}
       />
-
-      {}
+      <Route
+        path="/animals/:animalId(\d+)/edit"
+        render={(props) => {
+          if (isAuthenticated()) {
+            return <AnimalEditForm {...props} />;
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+      />
+      
       <Route
         exact
         path="/location"

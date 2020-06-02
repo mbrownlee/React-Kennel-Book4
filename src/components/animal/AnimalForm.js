@@ -29,7 +29,12 @@ const AnimalForm = (props) => {
     } else {
       setIsLoading(true);
       // Create the animal and redirect user to animal list
-      AnimalManager.post(animal).then(() => props.history.push("/animals"));
+      const theAnimal = {
+          name: animal.name,
+          breed: animal.breed,
+          employeedId: parseInt(animal.employeeId)
+      }
+      AnimalManager.post(theAnimal).then(() => props.history.push("/animals"));
     }
   };
 
@@ -57,7 +62,6 @@ const AnimalForm = (props) => {
             />
             <label htmlFor="breed">Breed</label>
             <select
-              value="{animal.employeeId}"
               id="employeeId"
               onChange={handleFieldChange}
             >

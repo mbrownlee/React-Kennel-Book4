@@ -8,15 +8,15 @@ const AnimalDetail = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    let theAnimal = {}
-
+    let theAnimal = {};
+    // full disclosure there was some instructor assistance on this
     AnimalManager.get(props.animalId)
       .then((animal) => {
-        theAnimal = animal
+        theAnimal = animal;
         return EmployeeManager.get(animal.employeeId);
       })
       .then((employee) => {
-        theAnimal.caretaker = employee.name
+        theAnimal.caretaker = employee.name;
         setAnimal(theAnimal);
       });
   }, [props.animalId]);
@@ -40,6 +40,8 @@ const AnimalDetail = (props) => {
         </h3>
         <p>Breed: {animal.breed}</p>
         <p>Caretaker: {animal.caretaker || "not assigned"} </p>
+
+
         <button type="button" disabled={isLoading} onClick={handleDelete}>
           Discharge
         </button>
