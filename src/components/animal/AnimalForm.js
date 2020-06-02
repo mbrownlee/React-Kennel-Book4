@@ -32,7 +32,7 @@ const AnimalForm = (props) => {
       const theAnimal = {
           name: animal.name,
           breed: animal.breed,
-          employeedId: parseInt(animal.employeeId)
+          employeeId: parseInt(animal.employeeId)
       }
       AnimalManager.post(theAnimal).then(() => props.history.push("/animals"));
     }

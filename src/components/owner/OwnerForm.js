@@ -3,7 +3,7 @@ import OwnerManager from '../../modules/OwnerManager';
 import './OwnerForm.css'
 
 const OwnerForm = props => {
-  const [owner, setOwner] = useState({ name: "", phone: "" });
+  const [owner, setOwner] = useState({ name: "", phoneNumber: "" });
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFieldChange = evt => {
@@ -16,7 +16,7 @@ const OwnerForm = props => {
   */
   const constructNewOwner = evt => {
     evt.preventDefault();
-    if (owner.name === "" || owner.phone === "") {
+    if (owner.name === "" || owner.phoneNumber === "") {
       window.alert("Please complete form");
     } else {
       setIsLoading(true);
@@ -43,10 +43,10 @@ const OwnerForm = props => {
               type="text"
               required
               onChange={handleFieldChange}
-              id="phone"
+              id="phoneNumber"
               placeholder="Phone Number"
             />
-            <label htmlFor="phone">Phone</label>
+            <label htmlFor="phoneNumber">Phone</label>
           </div>
           <div className="alignRight">
             <button

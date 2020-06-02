@@ -29,7 +29,7 @@ const AnimalEditForm = (props) => {
       id: props.match.params.animalId,
       name: animal.name,
       breed: animal.breed,
-      employeeId: animal.employeeId,
+      employeeId: parseInt(animal.employeeId),
     };
     console.log("howdy", editedAnimal);
     AnimalManager.update(editedAnimal).then(() =>
@@ -71,7 +71,7 @@ const AnimalEditForm = (props) => {
             />
             <label htmlFor="breed">Breed</label>
             <select
-              value={parseInt(animal.employeeId)}
+              value={animal.employeeId}
               id="employeeId"
               onChange={handleFieldChange}
             >

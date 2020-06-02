@@ -30,4 +30,13 @@ export default {
       body: JSON.stringify(editedAnimal),
     }).then((data) => data.json());
   },
+  getRandomId() {
+    return fetch(`${remoteURL}/animals`)
+      .then(result => result.json())
+      .then(animals => {
+        const randomIndex = Math.floor(Math.random() * animals.length);
+        const randomAnimal = animals[randomIndex];
+        return randomAnimal.id;
+    });
+  }
 };
