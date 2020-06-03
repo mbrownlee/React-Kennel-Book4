@@ -33,7 +33,7 @@ const LocationEditForm = props => {
         setLocay(locay);
         setIsLoading(false);
       });
-  }, []);
+  }, [props.match.params.locayId]);
 
   return (
     <>

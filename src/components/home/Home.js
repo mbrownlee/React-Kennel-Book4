@@ -21,11 +21,15 @@ const Home = () => {
         <br />
         500 Puppy Way
       </address>
+    <div className="homeCard">
       <h1>Animal Spotlight</h1>
       <button className="random" onClick={refreshSpotlightAnimal}>Reload &#x27f3;</button>
+      
       {
         spotlightId && <AnimalSpotlight animalId={spotlightId} />
       }
+      </div>
+      
     </>
   );
 };

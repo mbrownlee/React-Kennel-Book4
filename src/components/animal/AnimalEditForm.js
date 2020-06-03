@@ -44,7 +44,7 @@ const AnimalEditForm = (props) => {
       setAnimal(animal);
       setIsLoading(false);
     });
-  }, []);
+  }, [props.match.params.animalId]);
 
   return (
     <>
