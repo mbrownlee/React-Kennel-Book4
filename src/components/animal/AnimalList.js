@@ -11,7 +11,7 @@ const AnimalList = (props) => {
   //useState creates the state variables, useEffect watches them
   const [animals, setAnimals] = useState([]);
   useEffect(() => {
-    console.log(animals);
+    
   }, [animals]);
 
   const getAnimals = () => {

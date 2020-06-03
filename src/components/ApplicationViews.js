@@ -12,13 +12,16 @@ import LocationForm from "./location/LocationForm";
 import LocationEditForm from "./location/LocationEditForm";
 import EmployeeList from "./employees/EmployeeList";
 import EmployeeForm from "./employees/EmployeeForm";
+import EmployeeWithAnimals from "./employees/EmployeeWithAnimals";
 import EmployeeEditForm from "./employees/EmployeeEditForm";
 import OwnerList from "./owner/OwnerList";
 import OwnerForm from "./owner/OwnerForm";
 import OwnerEditForm from "./owner/OwnerEditForm";
 
-const ApplicationViews = () => {
-  const isAuthenticated = () => sessionStorage.getItem("credentials") !== null;
+const ApplicationViews = (props) => {
+  const hasUser = props.hasUser;
+  const setUser = props.setUser;
+
   return (
     <React.Fragment>
       <Route
@@ -28,12 +31,17 @@ const ApplicationViews = () => {
           return <Home />;
         }}
       />
-      <Route path="/login" component={Login} />
+      <Route
+        path="/login"
+        render={(props) => {
+          return <Login setUser={setUser} {...props} />;
+        }}
+      />
       <Route
         exact
         path="/animals"
         render={(props) => {
-          if (isAuthenticated()) {
+          if (hasUser) {
             return <AnimalList {...props} />;
           } else {
             return <Redirect to="/login" />;
@@ -62,7 +70,7 @@ const ApplicationViews = () => {
       <Route
         path="/animals/:animalId(\d+)/edit"
         render={(props) => {
-          if (isAuthenticated()) {
+          if (hasUser) {
             return <AnimalEditForm {...props} />;
           } else {
             return <Redirect to="/login" />;
@@ -74,11 +82,7 @@ const ApplicationViews = () => {
         exact
         path="/location"
         render={(props) => {
-          if (isAuthenticated()) {
-            return <LocationList {...props} />;
-          } else {
-            return <Redirect to="/login" />;
-          }
+          return <LocationList {...props} />;
         }}
       />
       <Route
@@ -103,7 +107,7 @@ const ApplicationViews = () => {
       <Route
         path="/location/:locayId(\d+)/edit"
         render={(props) => {
-          if (isAuthenticated()) {
+          if (hasUser) {
             return <LocationEditForm {...props} />;
           } else {
             return <Redirect to="/login" />;
@@ -114,7 +118,7 @@ const ApplicationViews = () => {
         exact
         path="/employees"
         render={(props) => {
-          if (isAuthenticated()) {
+          if (hasUser) {
             return <EmployeeList {...props} />;
           } else {
             return <Redirect to="/login" />;
@@ -128,9 +132,15 @@ const ApplicationViews = () => {
         }}
       />
       <Route
+        path="/employees/:employeeId(\d+)/details"
+        render={(props) => {
+          return <EmployeeWithAnimals {...props} />;
+        }}
+      />
+      <Route
         path="/employees/:employeeId(\d+)/edit"
         render={(props) => {
-          if (isAuthenticated()) {
+          if (hasUser) {
             return <EmployeeEditForm {...props} />;
           } else {
             return <Redirect to="/login" />;
@@ -141,7 +151,7 @@ const ApplicationViews = () => {
         exact
         path="/owner"
         render={(props) => {
-          if (isAuthenticated()) {
+          if (hasUser) {
             return <OwnerList {...props} />;
           } else {
             return <Redirect to="/login" />;
@@ -157,11 +167,7 @@ const ApplicationViews = () => {
       <Route
         path="/owner/:ownerId(\d+)/edit"
         render={(props) => {
-          if (isAuthenticated()) {
-            return <OwnerEditForm {...props} />;
-          } else {
-            return <Redirect to="/login" />;
-          }
+          return <OwnerEditForm {...props} />;
         }}
       />
     </React.Fragment>

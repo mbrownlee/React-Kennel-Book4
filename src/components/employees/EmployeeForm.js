@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EmployeeManager from '../../modules/EmployeeManager';
 import './EmployeeForm.css'
+import LocationManager from "../../modules/LocationManager";
 
 const EmployeeForm = props => {
-  const [employee, setEmployee] = useState({ name: "", specialty: "" });
+  const [employee, setEmployee] = useState({ name: "", specialty: "", locationId: "" });
+  const [locations, setLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const getLocations = () => {
+   
+    return LocationManager.getAll().then(locations => {
+      console.log(locations, "hey ho")
+      setLocations(locations)
+    })
+  }
 
   const handleFieldChange = evt => {
     const stateToChange = { ...employee };
@@ -16,15 +26,22 @@ const EmployeeForm = props => {
   */
   const constructNewEmployee = evt => {
     evt.preventDefault();
-    if (employee.name === "" || employee.specialty === "") {
-      window.alert("Please complete form");
+    if (employee.name === "" || employee.specialty === "" || employee.locationId === "") {
+      window.alert("Fill out the damn form");
     } else {
       setIsLoading(true);
-      // Create the animal and redirect user to animal list
-      EmployeeManager.post(employee)
+   
+      const theEmployee = {
+        name: employee.name,
+        specialty: employee.specialty,
+        locationId: parseInt(employee.locationId)
+      }
+      EmployeeManager.post(theEmployee)
         .then(() => props.history.push("/employees"));
     }
   };
+
+  useEffect(() => {getLocations()}, []);
 
   return (
     <>
@@ -47,6 +64,15 @@ const EmployeeForm = props => {
               placeholder="Special Skills"
             />
             <label htmlFor="specialty">specialty</label>
+            <select
+              id="locationId"
+              onChange={handleFieldChange}
+            >
+            <option value="">Primary Location</option>
+              {locations.map((location) => (
+                <option key={location.id} value={location.id}>{location.area}</option>
+              ))}
+            </select>
           </div>
           <div className="alignRight">
             <button
