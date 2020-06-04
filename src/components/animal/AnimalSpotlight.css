@@ -1,8 +1,10 @@
 .animal-spotlight {
     max-width: 400px;
     display: flex;
-    border: 1px dashed gray;
-    padding: 10px;
+    justify-content: center;
+    border: 3px dashed gray;
+    margin-left: 100px;
+    padding: 50px;
   }
   
   .animal-spotlight img {
