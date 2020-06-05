@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 import "./NavBar.css";
 
@@ -18,24 +18,24 @@ const NavBar = props => {
       <nav>
         <ul className="container">
           <li>
-            <Link className="nav-link" to="/"> Home </Link>
+            <NavLink exact className="nav-link" to="/" activeClassName="selected"> Home </NavLink>
           </li>
           {props.hasUser
             ? <li>
-                <Link className="nav-link" to="/animals"> Animals </Link>
+                <NavLink className="nav-link" to="/animals" activeClassName="selected"> Animals </NavLink>
               </li>
             : null}
           <li>
-            <Link className="nav-link" to="/location"> Locations </Link>
+            <NavLink className="nav-link" to="/location" activeClassName="selected"> Locations </NavLink>
           </li>
           {props.hasUser
             ? <li>
-                <Link className="nav-link" to="/employees"> Employees </Link>
+                <NavLink className="nav-link" to="/employees" activeClassName="selected"> Employees </NavLink>
               </li>
             : null}
           {props.hasUser
             ? <li>
-                <Link className="nav-link" to="/owner"> Owners </Link>
+                <NavLink className="nav-link" to="/owner" activeClassName="selected"> Owners </NavLink>
               </li>
             : null}
             {props.hasUser
@@ -43,7 +43,7 @@ const NavBar = props => {
                 <span className="nav-link" onClick={handleLogout}> Logout </span>
               </li>
             : <li>
-                <Link className="nav-link" to="/login">Login</Link>
+                <NavLink className="nav-link" to="/login" activeClassName="selected">Login</NavLink>
               </li>}
         </ul>
       </nav>
