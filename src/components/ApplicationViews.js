@@ -33,8 +33,8 @@ const ApplicationViews = (props) => {
       />
       <Route
         path="/login"
-        render={(props) => {
-          return <Login setUser={setUser} {...props} />;
+        render={(p) => {
+          return <Login setUser={setUser} setCheckedBox={props.setCheckedBox} checkedBox={props.checkedBox} {...p} />;
         }}
       />
       <Route
