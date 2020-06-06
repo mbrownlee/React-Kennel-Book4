@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Login = (props) => {
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+    
+  });
 
   // Update state whenever an input field is edited
   const handleFieldChange = (evt) => {
@@ -12,13 +16,17 @@ const Login = (props) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    /*
-        For now, just store the email and password that
-        the customer enters into session storage.
-        ...Let's just trust the user... That's a good idea, right????
-    */
+
     props.setUser(credentials);
     props.history.push("/");
+  };
+
+  const trackCheckedBox = () => {
+    if (!props.checkedBox) {
+      props.setCheckedBox(true);
+    } else if (props.checkedBox) {
+      props.setCheckedBox(false);
+    }
   };
 
   return (
@@ -46,10 +54,10 @@ const Login = (props) => {
           <label htmlFor="inputPassword">Password</label>
         </div>
         <button type="submit">Sign in</button>
-        <label htmlFor="rememberBox">Remember Me</label>
+        <label htmlFor="checkedBox">Remember Me</label>
         <input
-          onChange={handleFieldChange}
-          id="rememberBox"
+          onClick={trackCheckedBox}
+          id="checkedBox"
           type="checkbox"
         ></input>
       </fieldset>
